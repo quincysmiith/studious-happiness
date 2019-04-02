@@ -51,11 +51,12 @@ while attempt:
             attempt = False
             logging.warning("force reboot complete.")
 
-    if status.status_code == 200:
-        logging.info("Site is up")
-        attempt = False
-    else:
-        logging.warning("Didn't receive 200 status code, soft rebooting")
-        softRestartDroplet(key)
-        logging.warning("soft reboot complete")
-        attempt = False
+    if type(status.status_code) == int:
+        if status.status_code == 200:
+            logging.info("Site is up")
+            attempt = False
+        else:
+            logging.warning("Didn't receive 200 status code, soft rebooting")
+            softRestartDroplet(key)
+            logging.warning("soft reboot complete")
+            attempt = False
